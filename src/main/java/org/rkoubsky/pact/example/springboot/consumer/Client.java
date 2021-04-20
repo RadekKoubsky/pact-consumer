@@ -3,7 +3,7 @@ package org.rkoubsky.pact.example.springboot.consumer;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class Client {
-    public static final String PUBLISHED_DATE_FORMAT = "MMM dd, yyyy";
+    public static final String PUBLISHED_DATE_FORMAT = "yyyy-MM-dd";
 
     private final WebClient webClient;
 
