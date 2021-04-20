@@ -1,0 +1,115 @@
+{
+  "consumer": {
+    "name": "book_consumer"
+  },
+  "interactions": [
+    {
+      "description": "a request for book data",
+      "providerStates": [
+        {
+          "name": "book does not exist for given isbn"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/book",
+        "query": {
+          "isbn": [
+            "453-1449373320"
+          ]
+        }
+      },
+      "response": {
+        "status": 404
+      }
+    },
+    {
+      "description": "a request for book data",
+      "providerStates": [
+        {
+          "name": "book exists for given isbn"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/book",
+        "query": {
+          "isbn": [
+            "453-1449373320"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "author": "Martin Kleppmann",
+          "isbn": "978-1449373320",
+          "published": "2017-04-28",
+          "title": "Designing Data-Intensive Applications"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.author": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.isbn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.published": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "date": "yyyy-MM-dd",
+                  "match": "date"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.2.4"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "book_provider"
+  }
+}
