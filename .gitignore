@@ -1,0 +1,9 @@
+# Generated files
+*.class
+target
+
+# IntelliJ Idea
+.idea
+*.iml
+
+output
